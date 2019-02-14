@@ -24,7 +24,7 @@ export function drawHeadText() {
   }
   const subheadStyle = new TextStyle({
     fontFamily: 'PT Sans',
-    fontSize: 22,
+    fontSize: 24,
     fill: FILL_COLOR,
     align: "center",
   });

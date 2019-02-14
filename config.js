@@ -5,6 +5,6 @@ module.exports = {
   src_dir: path.join(__dirname, 'src'),
   dst_dir: path.join(__dirname, 'dist'),
   //images
-  jpegQuality: 80,
+  jpegQuality: 100,
   maxImageWidth: 1920,
 };
