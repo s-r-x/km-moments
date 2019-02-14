@@ -16,6 +16,7 @@ TweenLite.set($spinner, {
   rotation: -90,
   transformOrigin: "center center",
 });
+document.body.style.cursor = 'wait';
 
 
 const progressObj = {
@@ -50,6 +51,7 @@ function loadHandler() {
 }
 
 function readyHandler() {
+  document.body.style.cursor = '';
   TweenLite.set($spinner, {
     dashOffset: spinnerLength,
   });

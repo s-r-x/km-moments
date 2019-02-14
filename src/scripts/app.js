@@ -5,9 +5,10 @@ import TweenLite from 'gsap/TweenLite';
 import { Back, Sine, Power1, Expo } from 'gsap/EasePack';
 const { Sprite, Container } = PIXI;
 const { resources } = PIXI.loader;
-import { scaleTexture, RESIZE_DELAY, mapNumber } from './utils';
+import { processTexture, processFooterTexture, RESIZE_DELAY, mapNumber } from './utils';
 import sortBy from 'lodash.sortby';
 import throttle from 'lodash.throttle';
+import { drawHeadText, drawFooterText } from './textDrawers';
 const descList = require('./descriptions.json').list;
 
 
@@ -29,7 +30,6 @@ const ITEM_Y_PADDING = 60;
 let JUMP_MIN_DELTA = screenHeight / 4;
 let picturesAmount = 0;
 let containers = [];
-let isTextHidden = false;
 
 
 // ^-^ INIT APP ^-^ 
@@ -56,11 +56,7 @@ function calcWeights() {
   return sorted;
 }
 function updateText() {
-  if(activeItem === 0) {
-    DOM.desc.textContent = '';
-    return;
-  }
-  const text = descList[activeItem];
+  let text = activeItem === 0 ? '' : descList[activeItem];
   TweenLite.to(DOM.desc, 1, {
     text,
     ease: Expo.easeOut,
@@ -79,6 +75,7 @@ function resetPositions() {
   resetGlobalData();
 }
 function resetGlobalData() {
+  delta = 0;
   grabbedItem = null;
   isGrab = false;
 }
@@ -98,8 +95,24 @@ function processImages() {
     containers.forEach(container => container.destroy({ children: true, texture: true, baseTexture: true }));
     containers = [];
   }
-  const textures = Object.keys(resources).map(key => 
-    scaleTexture(resources[key].texture, screenWidth, screenHeight));
+  const resourcesKeys = Object.keys(resources);
+  const textures = resourcesKeys.map((key, i) => {
+    const { texture } = resources[key];
+    // need to draw text on first and last textures
+    let newTexture;
+    // header
+    if(i === 0) {
+      newTexture = processTexture(texture, screenWidth, screenHeight, drawHeadText);
+    }
+    // footer
+    else if(i === resourcesKeys.length-1) {
+      newTexture = processFooterTexture(texture, screenWidth, screenHeight, drawFooterText);
+    }
+    else {
+      newTexture = processTexture(texture, screenWidth, screenHeight, null);
+    }
+    return newTexture;
+  })
 
   picturesAmount = textures.length;
   // crop every texture into AMOUNT parts
@@ -132,25 +145,11 @@ function processImages() {
     app.stage.addChild(container);
   }
 }
-function hideText() {
-  const $text = qs('.text-container');
-  TweenLite.to($text, .8, {
-    ease: Sine.easeOut,
-    opacity: 0,
-    onComplete() {
-      $text.classList.add('hide');
-    }
-  });
-}
 
 
 // ^-^ EVENT HANDLERS ^-^
 function mousedownListener(e) {
   cursorGrabOn();
-  if(!isTextHidden) {
-    hideText();
-    isTextHidden = true;
-  }
   isGrab = true;
   startY = e.data.global.y;
 }
@@ -173,9 +172,6 @@ function mouseupListener(e) {
 
 function jump() {
   const itemsToStagger = calcWeights().map(([_, index ]) => containers[index]);
-  if(!isTextHidden) {
-    hideText();
-  }
   const tl = new TimelineLite();
   tl.staggerTo(itemsToStagger, .55, {
     ease: Back.easeOut,
