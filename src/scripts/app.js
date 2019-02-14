@@ -11,6 +11,7 @@ import throttle from 'lodash.throttle';
 const descList = require('./descriptions.json').list;
 
 
+
 // ^-^ GLOBAL VARS ^-^
 const DOM = {
   desc: qs('.desc-container'),
@@ -31,10 +32,12 @@ let containers = [];
 let isTextHidden = false;
 
 
-__ee__.on('assets_loaded', onload);
 // ^-^ INIT APP ^-^ 
+const assetsPromise = new Promise(r => __ee__.on('assets_loaded', r));
+const fontPromise = new Promise(r => __ee__.on('font_loaded', r));
+Promise.all([ assetsPromise, fontPromise ])
+.then(onload);
 function onload() {
-  updateText();
   processImages();
   initEventListeners();
   cursorGrabOff();

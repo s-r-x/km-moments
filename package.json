@@ -68,6 +68,7 @@
     "lodash.throttle": "^4.1.1",
     "normalize.css": "^8.0.0",
     "pixi.js": "^4.8.5",
+    "webfontloader": "^1.6.28",
     "wolfy87-eventemitter": "^5.2.5"
   }
 }

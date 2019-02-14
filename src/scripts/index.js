@@ -10,5 +10,6 @@ window.qs = document.querySelector.bind(document);
 window.qsa = document.querySelectorAll.bind(document);
 
 require('./preloader');
+require('./fontLoader');
 require('./app');
 require('./text');
