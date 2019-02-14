@@ -1,0 +1,97 @@
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+html, body {
+  font-size: 16px;
+  .full-width;
+  .full-height;
+}
+
+a {
+  text-decoration: none;
+}
+
+// for scrollreveal or simiral plugins to prevent x scroll.
+// need to add the same rule to some inner wrappers in some cases
+body {
+  overflow-x: hidden;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+canvas {
+  .block;
+}
+
+button {
+  .clean-button;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  .relative;
+}
+.text-container {
+  .absolute;
+  bottom: 150px;
+  z-index: 100;
+  left: 125px;
+  color: white;
+  h1 {
+    font-family: @first-font;
+    font-weight: 400;
+    font-size: 72px;
+    line-height: 70px;
+    margin-bottom: 27px;
+  }
+  h2 {
+    margin-left: 5px;
+    font-weight: 400;
+    font-family: @second-font;
+    font-size: 21px;
+    letter-spacing: 0.5px;
+  }
+  .accent {
+    opacity: 0.5;
+  }
+  .author {
+    .relative;
+    &::after {
+      content: '';
+      height: 1px;
+      .absolute;
+      bottom: -3px;
+      width: 0;
+      transition: width .4s cubic-bezier(0.86, 0, 0.07, 1);
+      background-color: white;
+      left: 0;
+    }
+    &:hover {
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.desc-container {
+  pointer-events: none;
+  .fixed;
+  //.uppercase;
+  font-family: @second-font;
+  z-index: 100;
+  left: 50px;
+  bottom: 50px;
+  letter-spacing: .5px;
+  font-size: 16px;
+}

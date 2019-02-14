@@ -1,0 +1,31 @@
+.button {
+
+}
+
+.button-primary {
+
+}
+
+.button-secondary {
+
+}
+
+
+// ^-^ PRELOADER ^-^ 
+.preloader {
+  .fixed;
+  width: 100%;
+  height: 100vh;
+  .left-top;
+  z-index: 999;
+  background: #0B0905;
+  &--circle, &--progress {
+    .absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &--progress {
+    font-size: 20px;
+  }
+}

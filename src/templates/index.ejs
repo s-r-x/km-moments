@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="фото" />
+    <meta name="author" content="srx" />
+    <meta name="description" content="Фотографии Ханты-Мансийска" />
+    <link href="https://fonts.googleapis.com/css?family=Lobster|PT+Sans&amp;subset=cyrillic" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  </head>
+  <body>
+    <div id="root">
+      <div class="preloader">
+        <%- include('./components/loader.svg') %> 
+        <span class="preloader--progress">0</span>
+      </div>
+      <canvas id="canvas"></canvas>
+      <div class="text-container">
+        <h1>Мгновения <br/>Ханты-Мансийска</h1>
+        <h2>
+          <span class="accent">Фотограф:</span>
+          <a target="_blank" class="author" href="https://www.instagram.com/strustatjana/">Струсь Татьяна</a>
+        </h2>
+      </div>
+      <span class="desc-container"></span>
+    </div>
+    <script src="/index.js"></script>
+  </body>
+</html>
