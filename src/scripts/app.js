@@ -56,7 +56,7 @@ function calcWeights() {
   return sorted;
 }
 function updateText() {
-  let text = activeItem === 0 ? '' : descList[activeItem];
+  let text = descList[activeItem];
   TweenLite.to(DOM.desc, 1, {
     text,
     ease: Expo.easeOut,
